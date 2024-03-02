@@ -1,24 +1,32 @@
 // hook to set and modify properties of the video player.
 import { useState, useEffect } from "react";
+import { formatTime } from "../utils/utils.js";
 
 export default function usePlayer(element) {
   const [player, setPlayer] = useState({
-    isPlaying: false,
+    isPlaying: true,
     speed: 1,
     progress: 0,
-    volume: 100,
-    isMuted: false,
-    autoPlayNext: false,
+    volume: 0,
+    isMuted: true,
+    autoPlay: true,
     showTimer: false,
     timerValue: "",
+    playNext: false,
   });
 
   // Toggle playing status
-  const togglePlaying = () => {
-    setPlayer((prevPlayer) => ({
-      ...prevPlayer,
-      isPlaying: !prevPlayer.isPlaying,
-    }));
+  const togglePlaying = (value) => {
+    setPlayer((prevPlayer) => {
+      if (prevPlayer.isPlaying && value) {
+        element.current.play();
+      }
+
+      return {
+        ...prevPlayer,
+        isPlaying: value,
+      };
+    });
   };
 
   // Toggle mute status
@@ -26,11 +34,12 @@ export default function usePlayer(element) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       isMuted: !prevPlayer.isMuted,
+      volume: prevPlayer.isMuted ? 100 : 0,
     }));
   };
 
   // Toggle mute status
-  const toggleAutoPlayNext = () => {
+  const toggleAutoPlay = () => {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       autoPlay: !prevPlayer.autoPlay,
@@ -64,7 +73,7 @@ export default function usePlayer(element) {
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      progress,
+      progress: isNaN(progress) ? 0 : progress,
     }));
   };
 
@@ -75,7 +84,7 @@ export default function usePlayer(element) {
     element.current.currentTime = (element.current.duration / 100) * change;
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      progress: change,
+      progress: isNaN(change) ? 0 : change,
     }));
   };
 
@@ -102,13 +111,6 @@ export default function usePlayer(element) {
     }
   };
 
-  // Utility function
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.round(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-  };
-
   // Use Effects
   useEffect(() => {
     // Update player state based on mute status and volume
@@ -129,9 +131,16 @@ export default function usePlayer(element) {
       const timerValue = player.showTimer ? duration - currentTime : duration;
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
-        timerValue: formatTime(timerValue),
+        timerValue: player.showTimer
+          ? `-${formatTime(timerValue)}`
+          : formatTime(timerValue),
       }));
     }
+
+    // Handling Next video in Queue play based on autoplay status
+    // if (duration === currentTime && player.autoPlay) {
+    //   setPlayer((prevPlayer) => ({ ...prevPlayer, playNext: true }));
+    // }
   }, [player.showTimer, player.progress, element]);
 
   return {
@@ -142,7 +151,7 @@ export default function usePlayer(element) {
     handleSpeed,
     handleTimeUpdate,
     handleProgress,
-    toggleAutoPlayNext,
+    toggleAutoPlay,
     toggleTimer,
     toggleFullScreen,
   };
