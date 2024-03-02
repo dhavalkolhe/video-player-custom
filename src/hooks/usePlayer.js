@@ -80,8 +80,10 @@ export default function usePlayer(element) {
   // Set progress manually
   const handleProgress = (e) => {
     const change = Number(e.target.value);
+    if (element.current) {
+      element.current.currentTime = (element.current.duration / 100) * change;
+    }
 
-    element.current.currentTime = (element.current.duration / 100) * change;
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       progress: isNaN(change) ? 0 : change,
@@ -136,11 +138,6 @@ export default function usePlayer(element) {
           : formatTime(timerValue),
       }));
     }
-
-    // Handling Next video in Queue play based on autoplay status
-    // if (duration === currentTime && player.autoPlay) {
-    //   setPlayer((prevPlayer) => ({ ...prevPlayer, playNext: true }));
-    // }
   }, [player.showTimer, player.progress, element]);
 
   return {

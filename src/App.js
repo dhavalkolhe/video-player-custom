@@ -6,6 +6,8 @@ import Playlist from "./components/Playlist.js";
 
 import { reorderArray } from "./utils/utils.js";
 
+import { HotkeysProvider } from "react-hotkeys-hook";
+
 function App() {
   const [videosData, setVideosData] = useState(data);
   const [videoState, setVideoState] = useState(videosData[0]);
@@ -77,16 +79,18 @@ function App() {
   };
 
   return (
-    <div>
-      <Player videoState={videoState} handlePlayNext={handlePlayNext} />
-      <Playlist
-        key={videosData.length}
-        videoState={videoState}
-        handleVideoChange={handleVideoChange}
-        videosData={videosData}
-        handleVideoClick={handleVideoClick}
-      />
-    </div>
+    <HotkeysProvider initiallyActiveScopes={["settings"]}>
+      <div>
+        <Player videoState={videoState} handlePlayNext={handlePlayNext} />
+        <Playlist
+          key={videosData.length}
+          videoState={videoState}
+          handleVideoChange={handleVideoChange}
+          videosData={videosData}
+          handleVideoClick={handleVideoClick}
+        />
+      </div>
+    </HotkeysProvider>
   );
 }
 

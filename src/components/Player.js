@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import usePlayer from "../hooks/usePlayer.js";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export default function Player({ videoState, handlePlayNext }) {
   const videoRef = useRef(null);
@@ -40,6 +41,43 @@ export default function Player({ videoState, handlePlayNext }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoState]);
 
+  // Key board Shortcuts
+  useHotkeys(
+    ["space", "up", "down", "m", "right", "left"],
+    (e, handler) => {
+      e.preventDefault();
+      const [key] = handler.keys;
+
+      switch (key) {
+        case "space":
+          togglePlaying(!player.isPlaying);
+          break;
+        case "up":
+          e.target.value = player.volume + 5;
+          handleVolume(e);
+          break;
+        case "down":
+          e.target.value = player.volume - 5;
+          handleVolume(e);
+          break;
+        case "m":
+          toggleMute();
+          break;
+        case "right":
+          e.target.value = player.progress + 10;
+          handleProgress(e);
+          break;
+        case "left":
+          e.target.value = player.progress - 10;
+          handleProgress(e);
+          break;
+        default:
+          break;
+      }
+    },
+    { scopes: ["settings"] }
+  );
+
   return (
     <div className="App flex justify-center items-center">
       <div>
@@ -50,6 +88,7 @@ export default function Player({ videoState, handlePlayNext }) {
             onTimeUpdate={handleTimeUpdate}
             width={400}
             height={400}
+            onClick={() => togglePlaying(!player.isPlaying)}
           />
           {/* Controls */}
           <div>
@@ -102,6 +141,9 @@ export default function Player({ videoState, handlePlayNext }) {
 
             {/* Timer/Duration */}
             <button onClick={toggleTimer}>{player.timerValue}</button>
+
+            {/* Play Next Video */}
+            <button onClick={handlePlayNext}>Next</button>
 
             {/* Full Screen */}
             {/* <button
