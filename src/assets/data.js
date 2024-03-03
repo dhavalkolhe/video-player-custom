@@ -99,7 +99,7 @@ const videos = [
 
     subtitle: "By Blender Foundation",
     thumb:
-      "https://pbs.twimg.com/profile_images/838793009936416770/2ZOYFNrx_400x400.jpg",
+      "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p10892939_v_h8_aa.jpg",
     title: "Sintel",
   },
   {

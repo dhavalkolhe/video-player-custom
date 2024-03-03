@@ -6,6 +6,8 @@ const customColors = {
   backBlack: "#0F0F0F",
   backGrey: "#212121",
   offWhite: "#E7E7E7",
+  backPlaying: "#311716",
+  backHover: "#212121",
 };
 
 export const theme = {

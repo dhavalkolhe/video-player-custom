@@ -80,15 +80,22 @@ function App() {
 
   return (
     <HotkeysProvider initiallyActiveScopes={["settings"]}>
-      <div className="bg-backBlack font-roboto text-offWhite">
-        <Player videoState={videoState} handlePlayNext={handlePlayNext} />
-        <Playlist
-          key={videosData.length}
-          videoState={videoState}
-          handleVideoChange={handleVideoChange}
-          videosData={videosData}
-          handleVideoClick={handleVideoClick}
-        />
+      <div className="flex h-screen bg-backBlack font-roboto text-offWhite overflow-y-auto">
+        <div className="w-2/3 mt-6">
+          <Player videoState={videoState} handlePlayNext={handlePlayNext} />
+        </div>
+        <div className="flex flex-col w-[30%] h-fit max-h-[85%] mt-6 pt-4 rounded-lg border-2 border-gray-800 bg-backGrey">
+          <p className="text-2xl font-bold tracking-wider mb-2 ml-2">
+            Playlist
+          </p>
+          <Playlist
+            key={videosData.length}
+            videoState={videoState}
+            handleVideoChange={handleVideoChange}
+            videosData={videosData}
+            handleVideoClick={handleVideoClick}
+          />
+        </div>
       </div>
     </HotkeysProvider>
   );

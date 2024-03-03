@@ -10,7 +10,7 @@ export default function usePlayer(element) {
     volume: 0,
     isMuted: true,
     autoPlay: true,
-    showTimer: false,
+    showTimer: true,
     timerValue: "",
     playNext: false,
   });

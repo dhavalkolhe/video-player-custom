@@ -3,3 +3,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-select {
+  @apply p-1 text-xs border rounded bg-transparent;
+}
+
+.custom-select option {
+  padding: 4px;
+  border-color: #212121;
+  background-color: #212121;
+  color: #212121;
+}
+
+video::-webkit-media-controls {
+  display: none;
+}
