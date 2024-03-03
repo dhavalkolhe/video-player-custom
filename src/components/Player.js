@@ -13,12 +13,14 @@ import {
   Gauge,
   Download,
   SpinnerGap,
+  PictureInPicture,
 } from "@phosphor-icons/react";
 import axios from "axios";
 
 export default function Player({ videoState, handlePlayNext }) {
   const [isHovering, setIsHovering] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+
   const videoRef = useRef(null);
 
   const {
@@ -59,7 +61,7 @@ export default function Player({ videoState, handlePlayNext }) {
 
   // Key board Shortcuts
   useHotkeys(
-    ["space", "up", "down", "m", "right", "left", "a", "f", "t"],
+    ["space", "up", "down", "m", "right", "left", "a", "f", "t", "d"],
     (e, handler) => {
       e.preventDefault();
       const [key] = handler.keys;
@@ -93,9 +95,13 @@ export default function Player({ videoState, handlePlayNext }) {
         case "f":
           toggleFullScreen();
           break;
+        case "d":
+          handleDownload();
+          break;
         case "t":
           toggleTimer();
           break;
+        // ctrl + p hits picture in picture by default
         default:
           break;
       }
@@ -145,6 +151,28 @@ export default function Player({ videoState, handlePlayNext }) {
     } catch (error) {
       console.error("Error downloading video:", error);
       alert("Download Failed");
+    }
+  };
+
+  // Picture in Picture Functionality for all types of browsers
+  const togglePip = async () => {
+    if (!document.pictureInPictureEnabled) {
+      console.error("Picture-in-Picture not supported.");
+      return;
+    }
+
+    if (document.pictureInPictureElement) {
+      try {
+        await document.exitPictureInPicture();
+      } catch (error) {
+        console.error("Error exiting Picture-in-Picture mode:", error);
+      }
+    } else {
+      try {
+        await videoRef.current.requestPictureInPicture();
+      } catch (error) {
+        console.error("Error entering Picture-in-Picture mode:", error);
+      }
     }
   };
 
@@ -266,6 +294,11 @@ export default function Player({ videoState, handlePlayNext }) {
                       alt="autoplayDisabled"
                     />
                   )}
+                </button>
+
+                {/* Picture in Picture */}
+                <button onClick={togglePip}>
+                  <PictureInPicture size={25} weight="fill" className="mr-3" />
                 </button>
 
                 {/* Full Screen */}
