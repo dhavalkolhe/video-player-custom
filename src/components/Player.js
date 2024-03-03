@@ -11,10 +11,14 @@ import {
   SpeakerHigh,
   CornersOut,
   Gauge,
+  Download,
+  SpinnerGap,
 } from "@phosphor-icons/react";
+import axios from "axios";
 
 export default function Player({ videoState, handlePlayNext }) {
   const [isHovering, setIsHovering] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const videoRef = useRef(null);
 
   const {
@@ -121,6 +125,29 @@ export default function Player({ videoState, handlePlayNext }) {
     }, 5000);
   };
 
+  // Download Handler
+  const handleDownload = async () => {
+    try {
+      setIsDownloading(true);
+      const response = await axios.get(videoState.source, {
+        responseType: "blob",
+      });
+      const url = URL.createObjectURL(new Blob([response.data]));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${videoState.title}.mp4`;
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      setIsDownloading(false);
+    } catch (error) {
+      console.error("Error downloading video:", error);
+      alert("Download Failed");
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div
@@ -215,6 +242,14 @@ export default function Player({ videoState, handlePlayNext }) {
                 <button onClick={toggleTimer} className="font-medium mr-3">
                   {player.timerValue}
                 </button>
+
+                {isDownloading ? (
+                  <SpinnerGap size={25} weight="bold" className="mr-3" />
+                ) : (
+                  <button onClick={handleDownload} className="mr-3">
+                    <Download size={25} weight="fill" />
+                  </button>
+                )}
 
                 {/* Auto Play */}
                 <button onClick={toggleAutoPlay} className="mr-3">
