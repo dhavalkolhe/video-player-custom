@@ -80,7 +80,7 @@ function App() {
 
   return (
     <HotkeysProvider initiallyActiveScopes={["settings"]}>
-      <div>
+      <div className="bg-backBlack font-roboto text-offWhite">
         <Player videoState={videoState} handlePlayNext={handlePlayNext} />
         <Playlist
           key={videosData.length}

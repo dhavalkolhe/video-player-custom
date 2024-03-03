@@ -1,6 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import usePlayer from "../hooks/usePlayer.js";
 import { useHotkeys } from "react-hotkeys-hook";
+import autoplayDisabled from "../assets/autoplayDisabled.png";
+import autoplayEnabled from "../assets/autoplayEnabled.png";
+import {
+  Play,
+  Pause,
+  SkipForward,
+  SpeakerSlash,
+  SpeakerHigh,
+} from "@phosphor-icons/react";
 
 export default function Player({ videoState, handlePlayNext }) {
   const videoRef = useRef(null);
@@ -95,7 +104,11 @@ export default function Player({ videoState, handlePlayNext }) {
             {/* Play/Pause Button */}
             <div>
               <button onClick={() => togglePlaying(!player.isPlaying)}>
-                {player.isPlaying ? <div>Pause</div> : <div>Play</div>}
+                {player.isPlaying ? (
+                  <Pause size={32} weight="fill" />
+                ) : (
+                  <Play size={32} weight="fill" />
+                )}
               </button>
             </div>
             {/* Progress Bar */}
@@ -127,15 +140,21 @@ export default function Player({ videoState, handlePlayNext }) {
               onInput={(e) => handleVolume(e)}
             />
             <button onClick={toggleMute}>
-              {player.isMuted ? <div>Unmute</div> : <div>Mute</div>}
+              {player.isMuted ? (
+                <SpeakerSlash size={32} weight="fill" />
+              ) : (
+                <SpeakerHigh size={32} weight="fill" />
+              )}
             </button>
 
             {/* Auto Play */}
             <button onClick={toggleAutoPlay}>
               {player.autoPlay ? (
-                <div>Disable AutoPlay</div>
+                <div>
+                  <img src={autoplayEnabled} width={40} alt="autoplayEnabled" />
+                </div>
               ) : (
-                <div>Enable AutoPlay</div>
+                <img src={autoplayDisabled} width={40} alt="autoplayDisabled" />
               )}
             </button>
 
@@ -143,7 +162,9 @@ export default function Player({ videoState, handlePlayNext }) {
             <button onClick={toggleTimer}>{player.timerValue}</button>
 
             {/* Play Next Video */}
-            <button onClick={handlePlayNext}>Next</button>
+            <button onClick={handlePlayNext}>
+              <SkipForward size={32} weight="fill" />
+            </button>
 
             {/* Full Screen */}
             {/* <button
