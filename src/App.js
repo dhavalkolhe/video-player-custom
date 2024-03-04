@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import data from "./assets/data.js";
+import data from "./utils/data.js";
 
 import Player from "./components/Player.js";
 import Playlist from "./components/Playlist.js";
