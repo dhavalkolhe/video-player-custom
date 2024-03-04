@@ -14,10 +14,15 @@ import {
   Download,
   SpinnerGap,
   PictureInPicture,
+  SkipBack,
 } from "@phosphor-icons/react";
 import axios from "axios";
 
-export default function Player({ videoState, handlePlayNext }) {
+export default function Player({
+  videoState,
+  handlePlayNext,
+  handlePlayPrevious,
+}) {
   const [isHovering, setIsHovering] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -211,8 +216,16 @@ export default function Player({ videoState, handlePlayNext }) {
 
             <div className="flex justify-between w-full p-2">
               <div className="flex items-center ml-2">
+                {/* Play Previous Video */}
+                <button onClick={handlePlayPrevious}>
+                  <SkipBack size={25} weight="fill" />
+                </button>
+
                 {/* Play/Pause Button */}
-                <button onClick={() => togglePlaying(!player.isPlaying)}>
+                <button
+                  className="ml-4"
+                  onClick={() => togglePlaying(!player.isPlaying)}
+                >
                   {player.isPlaying ? (
                     <Pause size={25} weight="fill" />
                   ) : (
