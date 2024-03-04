@@ -20,63 +20,31 @@ function App() {
 
       const updatedData = reorderedData.map((video, index) => ({
         ...video,
-        id: index,
+        order: index,
       }));
 
       return updatedData;
     });
   };
 
-  const handleVideoClick = (index) => {
+  const handleVideoClick = (videoId) => {
     // Find the clicked video
-    const clickedVideo = videosData.find((video) => video.id === index);
-
-    // Remove the currently playing video
-    const filteredData = videosData.filter(
-      (video) => video.id !== videoState.id && video.id !== index
-    );
-
-    // Place the clicked video at the top with index 0
-    const updatedData = [clickedVideo, ...filteredData];
-
-    // Update the ids
-    const updatedDataWithIds = updatedData.map((video, index) => ({
-      ...video,
-      id: index,
-    }));
+    const clickedVideo = videosData.find((video) => video.id === videoId);
 
     // Set the updated video state and data
-    setVideoState(() => ({
-      ...clickedVideo,
-      id: 0,
-    }));
-    setVideosData(updatedDataWithIds);
+    setVideoState(clickedVideo);
   };
 
   const handlePlayNext = () => {
-    const nextVideo = videosData.find(
-      (video) => video.id === videoState.id + 1
-    );
+    // Finding new order of current video
+    const { order } = videosData.find((video) => video.id === videoState.id);
 
-    // Remove the currently playing video and next video
-    const filteredData = videosData.filter(
-      (video) => video.id !== 0 && video.id !== 1
-    );
+    // Finding next video according to new Order
+    const nextVideo = videosData.find((video) => video.id === order + 1);
 
     if (nextVideo) {
-      // put next video at top
-      const updatedData = [nextVideo, ...filteredData];
-      const updatedDataWithIds = updatedData.map((video, index) => ({
-        ...video,
-        id: index,
-      }));
-
-      // set next video playing with id as 0
-      setVideoState(() => ({
-        ...nextVideo,
-        id: 0,
-      }));
-      setVideosData(updatedDataWithIds);
+      // set next video playing with id
+      setVideoState(nextVideo);
     }
   };
 
@@ -95,7 +63,7 @@ function App() {
               Playlist
             </p>
             <Playlist
-              key={videosData.length}
+              key={videoState.id}
               videoState={videoState}
               handleVideoChange={handleVideoChange}
               videosData={videosData}
