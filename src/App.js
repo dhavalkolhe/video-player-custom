@@ -113,14 +113,19 @@ function App() {
               target="_blank"
               rel="noreferrer"
             >
-              <GithubLogo size={25} color="#e7e7e7" weight="fill" />
+              <GithubLogo
+                size={25}
+                color="#e7e7e7"
+                weight="fill"
+                alt="GithubLogo"
+              />
             </a>
             <a
               href="https://portfolio-dhavalkolhe.vercel.app/"
               target="_blank"
               rel="noreferrer"
             >
-              <Link size={25} color="#e7e7e7" weight="bold" />
+              <Link size={25} color="#e7e7e7" weight="bold" alt="LinkLogo" />
             </a>
           </div>
         </div>

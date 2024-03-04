@@ -3,15 +3,15 @@ const videos = [
     id: 0,
     order: 0,
     description:
-      "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\nhttp://www.bigbuckbunny.org",
+      "Introducing Chromecast. The easiest way to enjoy online video and music on your TV—for when Batman's escapes aren't quite big enough. For $35. Learn how to use Chromecast with Google Play Movies and more at google.com/chromecast.",
 
     source:
-      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
 
-    subtitle: "By Blender Foundation",
+    subtitle: "By Google",
     thumb:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Big.Buck.Bunny.-.Opening.Screen.png/1200px-Big.Buck.Bunny.-.Opening.Screen.png",
-    title: "Big Buck Bunny",
+      "https://images.squarespace-cdn.com/content/v1/5a27091bb07869b9337851a6/1516652715869-4SL58SF2707KMNQDW4SC/chromecast+3.jpg?format=1000w",
+    title: "For Bigger Escape",
   },
   {
     id: 1,
@@ -44,15 +44,15 @@ const videos = [
     id: 3,
     order: 3,
     description:
-      "Introducing Chromecast. The easiest way to enjoy online video and music on your TV—for when Batman's escapes aren't quite big enough. For $35. Learn how to use Chromecast with Google Play Movies and more at google.com/chromecast.",
+      "Big Buck Bunny tells the story of a giant rabbit with a heart bigger than himself. When one sunny day three rodents rudely harass him, something snaps... and the rabbit ain't no bunny anymore! In the typical cartoon tradition he prepares the nasty rodents a comical revenge.\n\nLicensed under the Creative Commons Attribution license\nhttp://www.bigbuckbunny.org",
 
     source:
-      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
 
-    subtitle: "By Google",
+    subtitle: "By Blender Foundation",
     thumb:
-      "https://images.squarespace-cdn.com/content/v1/5a27091bb07869b9337851a6/1516652715869-4SL58SF2707KMNQDW4SC/chromecast+3.jpg?format=1000w",
-    title: "For Bigger Escape",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Big.Buck.Bunny.-.Opening.Screen.png/1200px-Big.Buck.Bunny.-.Opening.Screen.png",
+    title: "Big Buck Bunny",
   },
   {
     id: 4,
