@@ -59,6 +59,8 @@ Switches the display between the total video duration and the remaining time unt
 
 `Speed selector:` Control the playback speed of the video.
 
+`Keyboard Shortcuts:` Space (Play/Pause), Arrow Right-Left (Seek forward/backward), Arrow Up-Down (Volume Control), m (mute), a (autoPlay), t (timer/duration), d (download), alt+p (Picture in Picture), f (full-screen)
+
 #### Video Management Features:
 
 `Download:` Allow users to download videos for offline viewing.
